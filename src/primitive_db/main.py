@@ -2,7 +2,6 @@
 
 from src.primitive_db.engine import welcome
 
-
 def main():
     welcome()
 
