@@ -1,6 +1,5 @@
 import prompt
 
-
 def welcome():
     print("***")
     print("<command> exit - выйти из программы")

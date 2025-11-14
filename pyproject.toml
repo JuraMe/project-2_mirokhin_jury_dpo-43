@@ -25,7 +25,6 @@ packages = [
 project = "src.primitive_db.main:main"
 
 
-
 [tool.ruff]
 line-length = 88
 target-version = "py312"
