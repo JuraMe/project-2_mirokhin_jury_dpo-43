@@ -1,4 +1,4 @@
-
+VALID_TYPES = {"int", "str", "bool"}
 
 # Создание таблицы с указанными столбцами
 def create_table(metadata, table_name, columns):
