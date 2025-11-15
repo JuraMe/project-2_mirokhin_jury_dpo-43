@@ -23,3 +23,13 @@ def create_table(metadata, table_name, columns):
     print(f'Таблица "{table_name}" успешно создана со столбцами: '
           f'{", ".join([f"{k}:{v}" for k, v in table_structure.items()])}')
     return metadata
+
+# Удаление таблицы
+def drop_table(metadata, table_name):
+    if table_name not in metadata:
+        print(f'Ошибка: Таблица "{table_name}" не существует.')
+        return metadata
+
+    del metadata[table_name]
+    print(f'Таблица "{table_name}" успешно удалена.')
+    return metadata
