@@ -18,16 +18,26 @@ def welcome():
             print(f"Неизвестная команда: {command}")
 
 
-
-def print_help():
-    """Prints the help message for the current mode."""
-
-    print("\n***Процесс работы с таблицей***")
+# Функция помощи
+def print_help() -> None:
+    print("\n*** Управление таблицами ***")
     print("Функции:")
-    print("<command> create_table <имя_таблицы> <столбец1:тип> .. - создать таблицу")
+    print("<command> create_table <имя> <столбец1:тип> ... - создать таблицу")
     print("<command> list_tables - показать список всех таблиц")
-    print("<command> drop_table <имя_таблицы> - удалить таблицу")
+    print("<command> drop_table <имя> - удалить таблицу")
 
-    print("\nОбщие команды:")
-    print("<command> exit - выход из программы")
+    print("\n*** Операции с данными (CRUD) ***")
+    print("Функции:")
+    print("<command> insert into <имя> values (<v1>, <v2>, ...)")
+    print("  - добавить запись в таблицу")
+    print("<command> select from <имя> [where <столбец>=<значение>]")
+    print("  - выбрать записи")
+    print("<command> update <имя> set <столбец>=<значение>")
+    print("  where <столбец>=<значение> - обновить записи")
+    print("<command> delete from <имя> where <столбец>=<значение>")
+    print("  - удалить запись")
+    print("<command> info <имя> - информация о таблице")
+
+    print("\n*** Общие команды ***")
+    print("<command> exit - выйти из программы")
     print("<command> help - справочная информация\n")
