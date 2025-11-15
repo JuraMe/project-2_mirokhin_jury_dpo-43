@@ -56,7 +56,7 @@ def run() -> None:
 
             print_help()
 
-            elif command == "list_tables":
+        elif command == "list_tables":
             if metadata:
                 for table in metadata.keys():
                     print("-", table)
@@ -77,11 +77,9 @@ def run() -> None:
             if len(args) < 2:
                 print("Ошибка: укажите имя таблицы.")
                 continue
-
             table_name = args[1]
             metadata = drop_table(metadata, table_name)
             save_metadata(META_FILE, metadata)
 
-            else:
-
-            print(f"Неизвестная команда: {command}")
+        else:
+            print(f"Функции '{command}' нет. Попробуйте снова.")
