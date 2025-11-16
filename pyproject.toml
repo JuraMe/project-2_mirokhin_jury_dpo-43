@@ -5,7 +5,7 @@ description = "A primitive console database management system"
 authors = ["Jury Mirokhin <m@jura.me>"]
 readme = "README.md"
 packages = [
-    { include = "primitive_db", from = "src" },
+    { include = "primitive_db", from = "src" }, # <--- DeepSeek
 ]
 
 [tool.poetry.dependencies]
