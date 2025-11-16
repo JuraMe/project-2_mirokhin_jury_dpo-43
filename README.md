@@ -7,7 +7,9 @@ pip install --force-reinstall dist/primitive_db-0.1.0-py3-none-any.whl
 ```
 
 ## Запуск базы данных
+```bash
 database
+```
 
 # Управление таблицами
 ## Доступные команды
@@ -24,11 +26,17 @@ database
 
 Примеры использования:
 ### Создание таблицы пользователей
+```bash
 create_table users name:str age:int active:bool
+```
 ### Просмотр всех таблиц
+```bash
 list_tables
+```
 ### Удаление таблицы
+```bash
 drop_table users
+```
 
 ## Особенности
 - Поддерживаемые типы данных: int, str, bool
