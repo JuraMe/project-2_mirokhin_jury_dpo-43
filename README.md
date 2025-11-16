@@ -4,6 +4,7 @@
 ```bash
 poetry build
 pip install --force-reinstall dist/primitive_db-0.1.0-py3-none-any.whl
+```
 
 ## Запуск базы данных
 database
