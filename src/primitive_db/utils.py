@@ -1,6 +1,5 @@
 import json
 
-
 # Загружает данные из JSON-файла
 def load_metadata(filepath):
     try:

@@ -1,29 +1,26 @@
-[project]
-name = "project-2-mirokhin-jury-dpo-43"
+[tool.poetry]
+name = "primitive-db"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Jury Mirokhin",email = "m@jura.me"}
-]
+description = "A primitive console database management system"
+authors = ["Jury Mirokhin <m@jura.me>"]
 readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-    "prompt (>=0.4.1,<0.5.0)"
+packages = [
+    { include = "primitive_db", from = "src" },
 ]
 
+[tool.poetry.dependencies]
+python = "^3.13"
+prompt = "^0.4.1"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.14.5"
+
+[tool.poetry.scripts]
+database = "primitive_db.main:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
-packages = [
-    { include = "src" },
-]
-
-[tool.poetry.scripts]
-project = "src.primitive_db.main:main"
-
 
 [tool.ruff]
 line-length = 88
@@ -33,9 +30,3 @@ exclude = ["venv", ".venv", "dist", "__pycache__"]
 [tool.ruff.lint]
 select = ["E", "F", "I"]
 ignore = []
-
-
-[dependency-groups]
-dev = [
-    "ruff (>=0.14.5,<0.15.0)"
-]

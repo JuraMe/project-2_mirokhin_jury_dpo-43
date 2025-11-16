@@ -1,7 +1,6 @@
 import shlex
-
-from src.primitive_db.core import create_table, drop_table
-from src.primitive_db.utils import load_metadata, save_metadata
+from primitive_db.utils import load_metadata, save_metadata
+from primitive_db.core import create_table, drop_table
 
 META_FILE = "db_meta.json"
 
@@ -34,7 +33,7 @@ def run() -> None:
         if not user_input:
             continue
 
-        args = shlex.split(user_input)  # Для надёжного разбора строки shlex
+        args = shlex.split(user_input)  #Для надежного разбора строки shlex
         command = args[0]
 
         if command == "exit":
@@ -42,7 +41,6 @@ def run() -> None:
             break
 
         elif command == "help":
-
             print_help()
 
         elif command == "list_tables":
