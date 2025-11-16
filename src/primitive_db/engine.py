@@ -34,7 +34,7 @@ def run() -> None:
         if not user_input:
             continue
 
-        args = shlex.split(user_input)  #Для надежного разбора строки shlex
+        args = shlex.split(user_input)  # Для надёжного разбора строки shlex
         command = args[0]
 
         if command == "exit":
