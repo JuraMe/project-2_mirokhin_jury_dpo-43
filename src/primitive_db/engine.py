@@ -1,6 +1,7 @@
 import shlex
-from src.primitive_db.utils import load_metadata, save_metadata
+
 from src.primitive_db.core import create_table, drop_table
+from src.primitive_db.utils import load_metadata, save_metadata
 
 META_FILE = "db_meta.json"
 
