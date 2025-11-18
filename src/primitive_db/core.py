@@ -1,3 +1,5 @@
+from primitive_db.constants import VALID_TYPES
+
 # Создание таблицы с указанными столбцами
 def create_table(metadata, table_name, columns):
     if table_name in metadata:
