@@ -212,3 +212,4 @@ __marimo__/
 .venv
 dist
 /primitive_db_part_2
+/db_meta.json
