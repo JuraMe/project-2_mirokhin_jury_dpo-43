@@ -2,8 +2,6 @@ import shlex
 from primitive_db.utils import load_metadata, save_metadata
 from primitive_db.core import create_table, drop_table
 
-META_FILE = "db_meta.json"
-
 # Функция помощи
 def print_help() -> None:
     print("\n*** Управление таблицами ***")
