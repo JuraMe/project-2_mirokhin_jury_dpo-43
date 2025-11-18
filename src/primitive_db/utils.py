@@ -17,6 +17,9 @@ def save_metadata(filepath, data):
 
 # Создает директорию для данных если её нет
 def ensure_data_dir():
-    """Создает директорию для данных таблиц если она не существует"""
     if not os.path.exists(DATA_DIR):
         os.makedirs(DATA_DIR)
+
+# Получает путь к файлу данных таблицы
+def get_table_data_path(table_name):
+    return os.path.join(DATA_DIR, f"{table_name}.json")
