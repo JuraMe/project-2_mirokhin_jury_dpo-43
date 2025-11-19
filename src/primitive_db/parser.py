@@ -55,7 +55,10 @@ def parse_where_clause(where_str):
 
         # Ищем знак равенства
         if '=' not in condition:
-            raise ValueError(f"Некорректное условие: {condition}. Ожидается формат 'поле = значение'")
+            raise ValueError(
+                f"Некорректное условие: {condition}. "
+                f"Ожидается формат 'поле = значение'"
+            )
 
         # Разделяем по знаку равенства
         parts = condition.split('=', 1)
@@ -123,7 +126,10 @@ def parse_set_clause(set_str):
 
         # Ищем знак равенства
         if '=' not in assignment:
-            raise ValueError(f"Некорректное присваивание: {assignment}. Ожидается формат 'поле = значение'")
+            raise ValueError(
+                f"Некорректное присваивание: {assignment}. "
+                f"Ожидается формат 'поле = значение'"
+            )
 
         # Разделяем по знаку равенства
         parts = assignment.split('=', 1)
