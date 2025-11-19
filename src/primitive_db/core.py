@@ -1,4 +1,5 @@
 from primitive_db.constants import VALID_TYPES
+from primitive_db.utils import load_table_data, save_table_data
 
 # Создание таблицы с указанными столбцами
 def create_table(metadata, table_name, columns):
@@ -33,3 +34,65 @@ def drop_table(metadata, table_name):
     del metadata[table_name]
     print(f'Таблица "{table_name}" успешно удалена.')
     return metadata
+
+# Валидация и преобразование значения в соответствии с типом
+def _validate_and_convert(value, expected_type):
+    if expected_type == "int":
+        try:
+            return int(value)
+        except ValueError:
+            return None
+    elif expected_type == "str":
+        return str(value)
+    elif expected_type == "bool":
+        if value.lower() in ("true", "1", "yes"):
+            return True
+        elif value.lower() in ("false", "0", "no"):
+            return False
+        else:
+            return None
+    return None
+
+# Добавление новой записи в таблицу
+def insert(metadata, table_name, values):
+    # Проверка существования таблицы
+    if table_name not in metadata:
+        print(f'Ошибка: Таблица "{table_name}" не существует.')
+        return
+
+    # Получаем схему таблицы
+    schema = metadata[table_name]
+    # Убираем ID из схемы для проверки количества столбцов
+    columns = {k: v for k, v in schema.items() if k != "ID"}
+
+    # Проверка количества переданных значений
+    if len(values) != len(columns):
+        print(f"Ошибка: Ожидается {len(columns)} значений, получено {len(values)}.")
+        print(f"Столбцы: {', '.join(columns.keys())}")
+        return
+
+    # Валидация типов данных
+    record = {}
+    for (col_name, col_type), value in zip(columns.items(), values):
+        converted_value = _validate_and_convert(value, col_type)
+        if converted_value is None and col_type != "str":
+            print(f"Ошибка: Некорректное значение '{value}' для столбца '{col_name}' типа '{col_type}'.")
+            return
+        record[col_name] = converted_value
+
+    # Загружаем текущие данные таблицы
+    table_data = load_table_data(table_name)
+
+    # Генерируем новый ID
+    new_id = table_data["next_id"]
+    record["ID"] = new_id
+
+    # Добавляем запись
+    table_data["records"].append(record)
+    table_data["next_id"] += 1
+
+    # Сохраняем обновленные данные
+    save_table_data(table_name, table_data)
+
+    print(f'Запись успешно добавлена в таблицу "{table_name}" с ID={new_id}.')
+    return table_data
