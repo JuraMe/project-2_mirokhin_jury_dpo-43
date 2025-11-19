@@ -90,5 +90,47 @@ def run() -> None:
             values = args[2:]
             insert(metadata, table_name, values)
 
+        elif command == "select":
+            if len(args) < 2:
+                print("Ошибка: укажите имя таблицы.")
+                continue
+
+            table_name = args[1]
+
+            # Проверяем существование таблицы
+            if table_name not in metadata:
+                print(f'Ошибка: Таблица "{table_name}" не существует.')
+                continue
+
+            # Загружаем данные таблицы
+            table_data = load_table_data(table_name)
+
+            # Ищем WHERE в исходной строке команды
+            where_clause = None
+            if "WHERE" in user_input.upper():
+                # Находим позицию WHERE в исходной строке
+                where_idx = user_input.upper().index("WHERE")
+                where_str = user_input[where_idx + 5:].strip()
+                try:
+                    where_clause = parse_where_clause(where_str)
+                except ValueError as e:
+                    print(f"Ошибка парсинга WHERE: {e}")
+                    continue
+
+            # Выполняем SELECT
+            records = select(table_data, where_clause)
+
+            # Выводим результаты с помощью PrettyTable
+            if records:
+                table = PrettyTable()
+                # Используем ключи первой записи для заголовков
+                table.field_names = list(records[0].keys())
+                for record in records:
+                    table.add_row([record.get(field) for field in table.field_names])
+                print(table)
+                print(f"\nНайдено записей: {len(records)}")
+            else:
+                print("Записей не найдено.")
+
         else:
             print(f"Функции '{command}' нет. Попробуйте снова.")
