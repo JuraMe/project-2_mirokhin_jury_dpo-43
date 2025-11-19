@@ -1,6 +1,7 @@
 from primitive_db.constants import VALID_TYPES
 from primitive_db.utils import load_table_data, save_table_data
 
+
 # Создание таблицы с указанными столбцами
 def create_table(metadata, table_name, columns):
     if table_name in metadata:
@@ -76,7 +77,10 @@ def insert(metadata, table_name, values):
     for (col_name, col_type), value in zip(columns.items(), values):
         converted_value = _validate_and_convert(value, col_type)
         if converted_value is None and col_type != "str":
-            print(f"Ошибка: Некорректное значение '{value}' для столбца '{col_name}' типа '{col_type}'.")
+            print(
+                f"Ошибка: Некорректное значение '{value}' "
+                f"для столбца '{col_name}' типа '{col_type}'."
+            )
             return
         record[col_name] = converted_value
 

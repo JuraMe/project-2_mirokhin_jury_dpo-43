@@ -1,5 +1,6 @@
 import re
 
+
 # Парсит строковое значение в правильный тип данных
 def _parse_value(value_str):
     value_str = value_str.strip()

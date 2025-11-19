@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from primitive_db.engine import run
 
+
 # Запуск БД
 def main() -> None:
     run()

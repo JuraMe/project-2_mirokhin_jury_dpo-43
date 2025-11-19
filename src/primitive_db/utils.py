@@ -1,6 +1,8 @@
 import json
 import os
+
 from primitive_db.constants import DATA_DIR, ENCODING
+
 
 # Загружает данные из JSON-файла
 def load_metadata(filepath):

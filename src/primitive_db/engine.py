@@ -1,9 +1,17 @@
 import shlex
+
 from prettytable import PrettyTable
-from primitive_db.utils import load_metadata, save_metadata, load_table_data, save_table_data
-from primitive_db.core import create_table, drop_table, insert, select, update, delete
-from primitive_db.parser import parse_where_clause, parse_set_clause
+
 from primitive_db.constants import META_FILE
+from primitive_db.core import create_table, delete, drop_table, insert, select, update
+from primitive_db.parser import parse_set_clause, parse_where_clause
+from primitive_db.utils import (
+    load_metadata,
+    load_table_data,
+    save_metadata,
+    save_table_data,
+)
+
 
 # Функция помощи
 def print_help() -> None:
