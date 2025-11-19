@@ -33,3 +33,10 @@ def load_table_data(table_name):
             return json.load(file)
     except FileNotFoundError:
         return {"next_id": 1, "records": []}
+
+# Сохраняет данные таблицы
+def save_table_data(table_name, data):
+    ensure_data_dir()
+    filepath = get_table_data_path(table_name)
+    with open(filepath, "w", encoding=ENCODING) as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
