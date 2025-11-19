@@ -1,6 +1,8 @@
 import shlex
-from primitive_db.utils import load_metadata, save_metadata
-from primitive_db.core import create_table, drop_table
+from prettytable import PrettyTable
+from primitive_db.utils import load_metadata, save_metadata, load_table_data, save_table_data
+from primitive_db.core import create_table, drop_table, insert, select, update, delete
+from primitive_db.parser import parse_where_clause, parse_set_clause
 from primitive_db.constants import META_FILE
 
 # Функция помощи
@@ -10,6 +12,18 @@ def print_help() -> None:
     print("<command> create_table <имя> <столбец1:тип> ... - создать таблицу")
     print("<command> list_tables - показать список всех таблиц")
     print("<command> drop_table <имя> - удалить таблицу")
+
+    print("\n*** Работа с данными (CRUD) ***")
+    print("<command> insert <таблица> <значение1> <значение2> ... - добавить запись")
+    print("<command> select <таблица> [WHERE условие] - выбрать записи")
+    print("<command> update <таблица> SET поле=значение WHERE условие - обновить записи")
+    print("<command> delete <таблица> WHERE условие - удалить записи")
+    print("\nПримеры:")
+    print('  insert users "John" 28 true')
+    print('  select users')
+    print('  select users WHERE age = 28')
+    print('  update users SET age = 30 WHERE name = "John"')
+    print('  delete users WHERE ID = 1')
 
     print("\n*** Общие команды ***")
     print("<command> exit - выйти из программы")
