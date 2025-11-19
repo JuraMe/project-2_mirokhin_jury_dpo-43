@@ -176,5 +176,36 @@ def run() -> None:
             table_data = update(table_data, set_clause, where_clause)
             save_table_data(table_name, table_data)
 
+        elif command == "delete":
+            if len(args) < 2:
+                print("Ошибка: укажите имя таблицы.")
+                continue
+
+            table_name = args[1]
+
+            # Проверяем существование таблицы
+            if table_name not in metadata:
+                print(f'Ошибка: Таблица "{table_name}" не существует.')
+                continue
+
+            # Ищем WHERE в исходной строке команды
+            if "WHERE" not in user_input.upper():
+                print("Ошибка: отсутствует WHERE условие.")
+                continue
+
+            where_idx = user_input.upper().index("WHERE")
+            where_str = user_input[where_idx + 5:].strip()
+
+            try:
+                where_clause = parse_where_clause(where_str)
+            except ValueError as e:
+                print(f"Ошибка парсинга WHERE: {e}")
+                continue
+
+            # Загружаем данные, удаляем и сохраняем
+            table_data = load_table_data(table_name)
+            table_data = delete(table_data, where_clause)
+            save_table_data(table_name, table_data)
+
         else:
             print(f"Функции '{command}' нет. Попробуйте снова.")
