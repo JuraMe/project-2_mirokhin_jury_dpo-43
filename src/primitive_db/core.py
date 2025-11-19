@@ -141,3 +141,30 @@ def update(table_data, set_clause, where_clause):
 
     print(f"Обновлено записей: {updated_count}")
     return table_data
+
+# Удаление записей из таблицы
+def delete(table_data, where_clause):
+    records = table_data.get("records", [])
+    records_to_keep = []
+    deleted_count = 0
+
+    # Проходим по всем записям
+    for record in records:
+        # Проверяем, соответствует ли запись условию where_clause
+        match = True
+        for key, value in where_clause.items():
+            if key not in record or record[key] != value:
+                match = False
+                break
+
+        # Если запись НЕ соответствует условию, оставляем её
+        if not match:
+            records_to_keep.append(record)
+        else:
+            deleted_count += 1
+
+    # Обновляем список записей
+    table_data["records"] = records_to_keep
+
+    print(f"Удалено записей: {deleted_count}")
+    return table_data
