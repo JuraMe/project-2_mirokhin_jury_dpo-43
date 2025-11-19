@@ -23,3 +23,13 @@ def ensure_data_dir():
 # Получает путь к файлу данных таблицы
 def get_table_data_path(table_name):
     return os.path.join(DATA_DIR, f"{table_name}.json")
+
+# Загружает данные таблицы
+def load_table_data(table_name):
+    ensure_data_dir()
+    filepath = get_table_data_path(table_name)
+    try:
+        with open(filepath, "r", encoding=ENCODING) as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {"next_id": 1, "records": []}

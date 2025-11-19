@@ -9,7 +9,7 @@ VALID_TYPES = {"int", "str", "bool"}
 META_FILE = "db_meta.json"
 
 # Директория для хранения данных таблиц
-DATA_DIR = "db_data"
+DATA_DIR = "data"
 
 # Кодировка файлов
 ENCODING = "utf-8"
