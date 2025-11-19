@@ -132,5 +132,49 @@ def run() -> None:
             else:
                 print("Записей не найдено.")
 
+        elif command == "update":
+            if len(args) < 2:
+                print("Ошибка: укажите имя таблицы.")
+                continue
+
+            table_name = args[1]
+
+            # Проверяем существование таблицы
+            if table_name not in metadata:
+                print(f'Ошибка: Таблица "{table_name}" не существует.')
+                continue
+
+            # Ищем SET и WHERE в исходной строке команды
+            if "SET" not in user_input.upper():
+                print("Ошибка: отсутствует SET условие.")
+                continue
+
+            if "WHERE" not in user_input.upper():
+                print("Ошибка: отсутствует WHERE условие.")
+                continue
+
+            # Извлекаем SET и WHERE части
+            set_idx = user_input.upper().index("SET")
+            where_idx = user_input.upper().index("WHERE")
+
+            if where_idx <= set_idx:
+                print("Ошибка: WHERE должен идти после SET.")
+                continue
+
+            set_str = user_input[set_idx + 3:where_idx].strip()
+            where_str = user_input[where_idx + 5:].strip()
+
+            try:
+                set_clause = parse_set_clause(set_str)
+                where_clause = parse_where_clause(where_str)
+            except ValueError as e:
+                print(f"Ошибка парсинга: {e}")
+                continue
+
+            # Загружаем данные, обновляем и сохраняем
+            table_data = load_table_data(table_name)
+            table_data = update(table_data, set_clause, where_clause)
+            save_table_data(table_name, table_data)
+
         else:
             print(f"Функции '{command}' нет. Попробуйте снова.")
