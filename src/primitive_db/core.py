@@ -117,3 +117,27 @@ def select(table_data, where_clause=None):
             filtered_records.append(record)
 
     return filtered_records
+
+# Обновление записей в таблице
+def update(table_data, set_clause, where_clause):
+    records = table_data.get("records", [])
+    updated_count = 0
+
+    # Проходим по всем записям
+    for record in records:
+        # Проверяем, соответствует ли запись условию where_clause
+        match = True
+        for key, value in where_clause.items():
+            if key not in record or record[key] != value:
+                match = False
+                break
+
+        # Если запись соответствует условию, обновляем её
+        if match:
+            for key, value in set_clause.items():
+                if key in record:
+                    record[key] = value
+            updated_count += 1
+
+    print(f"Обновлено записей: {updated_count}")
+    return table_data
