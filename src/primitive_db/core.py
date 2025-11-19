@@ -96,3 +96,24 @@ def insert(metadata, table_name, values):
 
     print(f'Запись успешно добавлена в таблицу "{table_name}" с ID={new_id}.')
     return table_data
+
+# Выборка записей из таблицы с опциональной фильтрацией
+def select(table_data, where_clause=None):
+    records = table_data.get("records", [])
+
+    # Если фильтр не задан, возвращаем все записи
+    if where_clause is None:
+        return records
+
+    # Фильтруем записи по условию where_clause
+    filtered_records = []
+    for record in records:
+        match = True
+        for key, value in where_clause.items():
+            if key not in record or record[key] != value:
+                match = False
+                break
+        if match:
+            filtered_records.append(record)
+
+    return filtered_records
