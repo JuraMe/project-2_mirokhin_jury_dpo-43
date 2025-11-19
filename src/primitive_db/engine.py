@@ -81,5 +81,14 @@ def run() -> None:
             metadata = drop_table(metadata, table_name)
             save_metadata(META_FILE, metadata)
 
+        elif command == "insert":
+            if len(args) < 2:
+                print("Ошибка: укажите имя таблицы и значения.")
+                continue
+
+            table_name = args[1]
+            values = args[2:]
+            insert(metadata, table_name, values)
+
         else:
             print(f"Функции '{command}' нет. Попробуйте снова.")
