@@ -69,3 +69,71 @@ def parse_where_clause(where_str):
         result[key] = value
 
     return result
+
+# Парсит SET условие в словарь
+def parse_set_clause(set_str):
+    """
+    Парсит SET условие вида "age = 30, name = 'Jane'"
+    в словарь {'age': 30, 'name': 'Jane'}
+
+    Поддерживает:
+    - Несколько полей через запятую
+    - Строковые значения в одинарных или двойных кавычках
+    - Числовые значения (int)
+    - Булевы значения (true/false)
+
+    Примеры:
+    - "age = 30" -> {'age': 30}
+    - "name = 'Jane'" -> {'name': 'Jane'}
+    - "age = 30, active = false" -> {'age': 30, 'active': False}
+    """
+    if not set_str or not set_str.strip():
+        return {}
+
+    result = {}
+
+    # Разделяем по запятым, но учитываем кавычки
+    # Используем регулярное выражение для корректного разделения
+    assignments = []
+    current = []
+    in_quotes = False
+    quote_char = None
+
+    for char in set_str:
+        if char in ('"', "'") and not in_quotes:
+            in_quotes = True
+            quote_char = char
+            current.append(char)
+        elif char == quote_char and in_quotes:
+            in_quotes = False
+            quote_char = None
+            current.append(char)
+        elif char == ',' and not in_quotes:
+            assignments.append(''.join(current))
+            current = []
+        else:
+            current.append(char)
+
+    if current:
+        assignments.append(''.join(current))
+
+    for assignment in assignments:
+        assignment = assignment.strip()
+
+        # Ищем знак равенства
+        if '=' not in assignment:
+            raise ValueError(f"Некорректное присваивание: {assignment}. Ожидается формат 'поле = значение'")
+
+        # Разделяем по знаку равенства
+        parts = assignment.split('=', 1)
+        if len(parts) != 2:
+            raise ValueError(f"Некорректное присваивание: {assignment}")
+
+        key = parts[0].strip()
+        value_str = parts[1].strip()
+
+        # Парсим значение
+        value = _parse_value(value_str)
+        result[key] = value
+
+    return result
