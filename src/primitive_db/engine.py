@@ -24,7 +24,10 @@ def print_help() -> None:
     print("\n*** Работа с данными (CRUD) ***")
     print("<command> insert <таблица> <значение1> <значение2> ... - добавить запись")
     print("<command> select <таблица> [WHERE условие] - выбрать записи")
-    print("<command> update <таблица> SET поле=значение WHERE условие - обновить записи")
+    print(
+        "<command> update <таблица> SET поле=значение WHERE условие "
+        "- обновить записи"
+    )
     print("<command> delete <таблица> WHERE условие - удалить записи")
     print("\nПримеры:")
     print('  insert users "John" 28 true')
