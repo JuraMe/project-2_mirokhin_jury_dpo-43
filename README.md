@@ -72,8 +72,8 @@ drop_table users
 | **DELETE** | `delete <таблица> WHERE условие` | Удалить записи по условию | `delete users WHERE id=5` |
 
 ## Примеры команд:
-  insert users "John" 28 true
-  select users
-  select users WHERE age = 28
-  update users SET age = 30 WHERE name = "John"
-  delete users WHERE ID = 1
+  - insert users "John" 28 true
+  - select users
+  - select users WHERE age = 28
+  - update users SET age = 30 WHERE name = "John"
+  - delete users WHERE ID = 1
