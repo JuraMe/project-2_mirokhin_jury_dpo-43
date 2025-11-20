@@ -43,8 +43,8 @@ drop_table users
 - Автоматический ключ: При создании таблицы автоматически добавляется столбец ID:int
 - Простой синтаксис: Интуитивно понятные команды для работы с данными
 
-## Демонстрация работы
-[![Демонстрация работы](https://asciinema.org/a/fOFESBdV4t2JTkScsmZ1SKBev.svg)](https://asciinema.org/a/fOFESBdV4t2JTkScsmZ1SKBev)
+## Демонстрация Управлением таблиц
+[![Демонстрация работы второй части](https://asciinema.org/a/fOFESBdV4t2JTkScsmZ1SKBev.svg)](https://asciinema.org/a/fOFESBdV4t2JTkScsmZ1SKBev)
 
 ## В демонстрации показано:
 - Установка пакета
@@ -58,3 +58,22 @@ drop_table users
 - Управление зависимостями: Poetry
 - Формат хранения: JSON
 - Архитектура: Процедурное программирование
+
+## Демонстрация работы CRUD
+[![Демонстрация работы третье части](https://asciinema.org/a/VEqtw5t4HSzBPs1mi2HnuAfS0.svg)](https://asciinema.org/a/VEqtw5t4HSzBPs1mi2HnuAfS0.svg)
+
+##  Работа с данными (CRUD) Основные команды
+
+| Команда | Синтаксис | Описание | Пример |
+|---------|-----------|-----------|---------|
+| **INSERT** | `insert <таблица> <значение1> <значение2> ...` | Добавить новую запись в таблицу | `insert users 1 "Анна Иванова" anna@mail.ru 25` |
+| **SELECT** | `select <таблица> [WHERE условие]` | Выбрать записи из таблицы | `select users WHERE age > 30` |
+| **UPDATE** | `update <таблица> SET поле=значение WHERE условие` | Обновить записи по условию | `update users SET age=26 WHERE id=1` |
+| **DELETE** | `delete <таблица> WHERE условие` | Удалить записи по условию | `delete users WHERE id=5` |
+
+## Примеры команд:
+  insert users "John" 28 true
+  select users
+  select users WHERE age = 28
+  update users SET age = 30 WHERE name = "John"
+  delete users WHERE ID = 1
