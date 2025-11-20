@@ -44,7 +44,7 @@ drop_table users
 - Простой синтаксис: Интуитивно понятные команды для работы с данными
 
 ## Демонстрация Управлением таблиц
-[![Демонстрация работы второй части](https://asciinema.org/a/fOFESBdV4t2JTkScsmZ1SKBev.svg)](https://asciinema.org/a/fOFESBdV4t2JTkScsmZ1SKBev)
+[![asciicast](https://asciinema.org/a/fOFESBdV4t2JTkScsmZ1SKBev.svg)](https://asciinema.org/a/fOFESBdV4t2JTkScsmZ1SKBev)
 
 ## В демонстрации показано:
 - Установка пакета
@@ -60,7 +60,7 @@ drop_table users
 - Архитектура: Процедурное программирование
 
 ## Демонстрация работы CRUD
-[![Демонстрация работы третье части](https://asciinema.org/a/VEqtw5t4HSzBPs1mi2HnuAfS0.svg)](https://asciinema.org/a/VEqtw5t4HSzBPs1mi2HnuAfS0.svg)
+[![asciicast](https://asciinema.org/a/VEqtw5t4HSzBPs1mi2HnuAfS0.svg)](https://asciinema.org/a/VEqtw5t4HSzBPs1mi2HnuAfS0)
 
 ##  Работа с данными (CRUD) Основные команды
 
