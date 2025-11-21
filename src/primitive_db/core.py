@@ -1,8 +1,10 @@
 from primitive_db.constants import VALID_TYPES
 from primitive_db.utils import load_table_data, save_table_data
+from primitive_db.decorators import handle_db_errors
 
 
 # Создание таблицы с указанными столбцами
+@handle_db_errors
 def create_table(metadata, table_name, columns):
     if table_name in metadata:
         print(f'Ошибка: Таблица "{table_name}" уже существует.')
@@ -11,15 +13,11 @@ def create_table(metadata, table_name, columns):
     table_structure = {"ID": "int"}
 
     for col in columns:
-        try:
-            name, col_type = col.split(":")
-            if col_type not in VALID_TYPES:
-                print(f"Некорректный тип данных: {col_type}. Попробуйте снова.")
-                return metadata
-            table_structure[name] = col_type
-        except ValueError:
-            print(f"Некорректное значение: {col}. Попробуйте снова.")
+        name, col_type = col.split(":")
+        if col_type not in VALID_TYPES:
+            print(f"Некорректный тип данных: {col_type}. Попробуйте снова.")
             return metadata
+        table_structure[name] = col_type
 
     metadata[table_name] = table_structure
     print(f'Таблица "{table_name}" успешно создана со столбцами: '
@@ -27,6 +25,7 @@ def create_table(metadata, table_name, columns):
     return metadata
 
 # Удаление таблицы
+@handle_db_errors
 def drop_table(metadata, table_name):
     if table_name not in metadata:
         print(f'Ошибка: Таблица "{table_name}" не существует.')
@@ -55,6 +54,7 @@ def _validate_and_convert(value, expected_type):
     return None
 
 # Добавление новой записи в таблицу
+@handle_db_errors
 def insert(metadata, table_name, values):
     # Проверка существования таблицы
     if table_name not in metadata:
@@ -102,6 +102,7 @@ def insert(metadata, table_name, values):
     return table_data
 
 # Выборка записей из таблицы с опциональной фильтрацией
+@handle_db_errors
 def select(table_data, where_clause=None):
     records = table_data.get("records", [])
 
@@ -123,6 +124,7 @@ def select(table_data, where_clause=None):
     return filtered_records
 
 # Обновление записей в таблице
+@handle_db_errors
 def update(table_data, set_clause, where_clause):
     records = table_data.get("records", [])
     updated_count = 0
@@ -147,6 +149,7 @@ def update(table_data, set_clause, where_clause):
     return table_data
 
 # Удаление записей из таблицы
+@handle_db_errors
 def delete(table_data, where_clause):
     records = table_data.get("records", [])
     records_to_keep = []
