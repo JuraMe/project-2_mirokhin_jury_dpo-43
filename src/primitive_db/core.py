@@ -1,6 +1,6 @@
 from primitive_db.constants import VALID_TYPES
 from primitive_db.utils import load_table_data, save_table_data
-from primitive_db.decorators import handle_db_errors
+from primitive_db.decorators import handle_db_errors, confirm_action
 
 
 # Создание таблицы с указанными столбцами
@@ -25,6 +25,7 @@ def create_table(metadata, table_name, columns):
     return metadata
 
 # Удаление таблицы
+@confirm_action("удаление таблицы")
 @handle_db_errors
 def drop_table(metadata, table_name):
     if table_name not in metadata:
@@ -149,6 +150,7 @@ def update(table_data, set_clause, where_clause):
     return table_data
 
 # Удаление записей из таблицы
+@confirm_action("удаление записей")
 @handle_db_errors
 def delete(table_data, where_clause):
     records = table_data.get("records", [])
