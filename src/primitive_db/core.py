@@ -1,6 +1,6 @@
 from primitive_db.constants import VALID_TYPES
-from primitive_db.utils import load_table_data, save_table_data, create_cacher
-from primitive_db.decorators import handle_db_errors, confirm_action, log_time
+from primitive_db.decorators import confirm_action, handle_db_errors, log_time
+from primitive_db.utils import create_cacher, load_table_data, save_table_data
 
 # Создаем глобальный кэшер для функции select
 _select_cache = create_cacher()

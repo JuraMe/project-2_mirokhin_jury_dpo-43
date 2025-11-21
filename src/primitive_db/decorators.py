@@ -11,7 +11,8 @@ def confirm_action(action_name: str):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             # Запрашиваем подтверждение у пользователя
-            response = input(f'Вы уверены, что хотите выполнить "{action_name}"? [y/n]: ')
+            prompt = f'Вы уверены, что хотите выполнить "{action_name}"? [y/n]: '
+            response = input(prompt)
 
             # Если пользователь подтвердил действие
             if response.lower() == 'y':
