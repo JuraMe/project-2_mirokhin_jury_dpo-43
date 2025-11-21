@@ -14,7 +14,7 @@ def handle_db_errors(func: Callable) -> Callable:
         except FileNotFoundError as e:
             print(f"Ошибка: Файл не найден - {e}")
         except KeyError as e:
-            print(f"Ошибка: Ключ не найден - {e}")
+            print(f"Ошибка: Таблица, столбец или ключ не найден - {e}")
         except ValueError as e:
             print(f"Ошибка: Некорректное значение - {e}")
         except TypeError as e:
