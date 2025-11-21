@@ -1,6 +1,9 @@
 from primitive_db.constants import VALID_TYPES
-from primitive_db.utils import load_table_data, save_table_data
+from primitive_db.utils import load_table_data, save_table_data, create_cacher
 from primitive_db.decorators import handle_db_errors, confirm_action, log_time
+
+# Создаем глобальный кэшер для функции select
+_select_cache = create_cacher()
 
 
 # Создание таблицы с указанными столбцами
@@ -107,24 +110,38 @@ def insert(metadata, table_name, values):
 @handle_db_errors
 @log_time
 def select(table_data, where_clause=None):
-    records = table_data.get("records", [])
+    import json
 
-    # Если фильтр не задан, возвращаем все записи
-    if where_clause is None:
-        return records
+    # Создаем уникальный ключ для кэша на основе данных и условия
+    # Используем JSON сериализацию для создания уникального ключа
+    cache_key = json.dumps({
+        "records_hash": hash(json.dumps(table_data.get("records", []), sort_keys=True)),
+        "where_clause": where_clause
+    }, sort_keys=True)
 
-    # Фильтруем записи по условию where_clause
-    filtered_records = []
-    for record in records:
-        match = True
-        for key, value in where_clause.items():
-            if key not in record or record[key] != value:
-                match = False
-                break
-        if match:
-            filtered_records.append(record)
+    # Определяем функцию для получения результата (вызывается только при промахе кэша)
+    def compute_result():
+        records = table_data.get("records", [])
 
-    return filtered_records
+        # Если фильтр не задан, возвращаем все записи
+        if where_clause is None:
+            return records
+
+        # Фильтруем записи по условию where_clause
+        filtered_records = []
+        for record in records:
+            match = True
+            for key, value in where_clause.items():
+                if key not in record or record[key] != value:
+                    match = False
+                    break
+            if match:
+                filtered_records.append(record)
+
+        return filtered_records
+
+    # Используем кэширование
+    return _select_cache(cache_key, compute_result)
 
 # Обновление записей в таблице
 @handle_db_errors
@@ -179,3 +196,14 @@ def delete(table_data, where_clause):
 
     print(f"Удалено записей: {deleted_count}")
     return table_data
+
+
+# Функции для управления кэшем select
+def clear_select_cache():
+    """Очистить кэш для операций select"""
+    _select_cache.clear()
+
+
+def get_select_cache_stats():
+    """Получить статистику кэша select"""
+    return _select_cache.stats()

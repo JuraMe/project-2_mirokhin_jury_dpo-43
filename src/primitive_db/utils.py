@@ -46,3 +46,49 @@ def save_table_data(table_name, data):
     filepath = get_table_data_path(table_name)
     with open(filepath, "w", encoding=ENCODING) as file:
         json.dump(data, file, indent=4, ensure_ascii=False)
+
+
+# Функция с замыканием для кэширования результатов
+def create_cacher():
+    """
+    Создает функцию кэширования с замыканием.
+    """
+    # Кэш хранится в замыкании
+    cache = {}
+
+    def cache_result(key, value_func):
+        """
+        Функция для кэширования результатов.
+        """
+        # Проверяем, есть ли результат в кэше
+        if key in cache:
+            print(f"[CACHE HIT] Возвращен кэшированный результат для ключа: {key}")
+            return cache[key]
+
+        # Если результата нет, вызываем функцию для получения данных
+        print(f"[CACHE MISS] Вычисление результата для ключа: {key}")
+        result = value_func()
+
+        # Сохраняем результат в кэш
+        cache[key] = result
+
+        return result
+
+    # Добавляем методы для управления кэшем
+    def clear_cache():
+        """Очистить весь кэш"""
+        cache.clear()
+        print("[CACHE] Кэш очищен")
+
+    def get_cache_stats():
+        """Получить статистику кэша"""
+        return {
+            "size": len(cache),
+            "keys": list(cache.keys())
+        }
+
+    # Добавляем дополнительные методы к функции
+    cache_result.clear = clear_cache
+    cache_result.stats = get_cache_stats
+
+    return cache_result
