@@ -1,6 +1,6 @@
 from primitive_db.constants import VALID_TYPES
 from primitive_db.utils import load_table_data, save_table_data
-from primitive_db.decorators import handle_db_errors, confirm_action
+from primitive_db.decorators import handle_db_errors, confirm_action, log_time
 
 
 # Создание таблицы с указанными столбцами
@@ -56,6 +56,7 @@ def _validate_and_convert(value, expected_type):
 
 # Добавление новой записи в таблицу
 @handle_db_errors
+@log_time
 def insert(metadata, table_name, values):
     # Проверка существования таблицы
     if table_name not in metadata:
@@ -104,6 +105,7 @@ def insert(metadata, table_name, values):
 
 # Выборка записей из таблицы с опциональной фильтрацией
 @handle_db_errors
+@log_time
 def select(table_data, where_clause=None):
     records = table_data.get("records", [])
 
