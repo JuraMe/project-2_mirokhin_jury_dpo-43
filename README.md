@@ -116,3 +116,6 @@ drop_table users
 - `clear_cache()` - очистить весь кэш
 - `remove_cache(key)` - удалить конкретную запись из кэша
 Фунция повышает производительность при повторных запросах с одинаковыми условиями.
+
+## Демонстрация работы Декораторов и замыканий
+[![asciicast](https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w)](https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w)
