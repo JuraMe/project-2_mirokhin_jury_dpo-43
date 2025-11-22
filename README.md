@@ -118,4 +118,4 @@ drop_table users
 Фунция повышает производительность при повторных запросах с одинаковыми условиями.
 
 ## Демонстрация работы Декораторов и замыканий
-[![asciicast](https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w)](https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w)
+[![asciicast](https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w.svg)](https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w)
