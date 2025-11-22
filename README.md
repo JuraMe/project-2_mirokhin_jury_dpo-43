@@ -119,3 +119,5 @@ drop_table users
 
 ## Демонстрация работы Декораторов и замыканий
 [![asciicast](https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w.svg)](https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w)
+
+https://asciinema.org/a/HvqzKGG6AcgTlDK94fCHzxq1w
